@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Para Mariana</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      background: #f8f0f8;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+      overflow: hidden;
+    }
+    .card {
+      position: relative;
+      background: white;
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.2);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+    .btn-yes {
+      background: #ff758f;
+      color: white;
+    }
+    .btn-no {
+      background: #ddd;
+      color: #555;
+      position: relative;
+    }
+    .small-photo {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 8px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+    }
+    .surprise {
+      margin-top: 16px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #555;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .heart {
+      position: fixed;
+      top: -50px;
+      font-size: 18px;
+      pointer-events: none;
+      z-index: 999;
+      user-select: none;
+      animation: float 4s ease-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(110vh) scale(1.3); opacity: 0; }
+    }
+    .answer p {
+      line-height: 1.4;
+      font-size: 16px;
+      text-align: left;
+    }
+    .answer {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    .photos {
+      display: none;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .heart-decor {
+      font-size: 1.2rem;
+      display: inline-block;
+      margin: 0 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card" id="card">
+    <div class="question" id="question">
+      <p style="font-size:18px; font-weight:600;">
+        <span class="heart-decor">❤️</span> Oiiii, minha princesa <span class="heart-decor">❤️</span><br />
+        hoje é seu aniversário<br />
+        posso te dar um parabéns especial? <span class="heart-decor">💖</span>
+      </p>
+      <div class="buttons">
+        <button id="yes" class="btn-yes" aria-label="Sim">Sim!</button>
+        <button id="no" class="btn-no" aria-label="Não">Não</button>
+      </div>
+    </div>
+
+    <div class="answer" id="answer">
+      <p>
+        Não importa o que os outros digam de você,<br/><br/>
+        ou o que você acredita sobre você mesma.<br/><br/>
+        Eu te amo muiiiiiiiiiiiiiiiiiiiito. <span class="heart-decor">❤️</span><br/><br/>
+        Eu realmente te amo loucamente. <span class="heart-decor">💘</span><br/><br/>
+        Eu quero estar sempre com você e sempre ter a honra de segurar sua mão. <span class="heart-decor">🤍</span><br/><br/>
+        Mesmo se você citar 10 coisas que odeia em si mesma,<br/><br/>
+        eu vou estar aqui e vou te dizer 2000 coisas que eu gosto em você. <span class="heart-decor">💕</span><br/><br/>
+        Isso é um tratamento especial que eu tanto quero te dar. <span class="heart-decor">💝</span><br/><br/>
+        Feliz Aniversário, meu amor! 🎉❤️<br/><br/>
+        Te desejo tudo de mais lindo! (inclusive eu kakakaka)
+      </p>
+      <p id="surprise" class="surprise">
+        Agora vai pro próximo presente... <span class="heart-decor">💌</span>
+      </p>
+      <div class="photos" id="photos" aria-label="Fotos de vocês">
+        <img src="SUA_FOTO_1.jpg" alt="Foto nossa 1" class="small-photo" />
+        <img src="SUA_FOTO_2.jpg" alt="Foto nossa 2" class="small-photo" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Música de fundo -->
+  <audio id="bg-music" loop>
+    <source src="my_love_all_mine.mp3" type="audio/mpeg" />
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <script>
+    const card = document.getElementById("card");
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const question = document.getElementById("question");
+    const answer = document.getElementById("answer");
+    const surprise = document.getElementById("surprise");
+    const photos = document.getElementById("photos");
+    const music = document.getElementById("bg-music");
+
+    yesBtn.addEventListener("click", function () {
+      music.currentTime = 0;
+      music.volume = 0.2;
+      music.play();
+
+      card.style.backgroundImage =
+        "url('https://media.tenor.com/XZlVEiZ2yLAAAAAi/happy-birthday-love-you.gif')";
+      card.style.backgroundSize = "cover";
+      card.style.backgroundPosition = "center";
+
+      question.style.display = "none";
+      answer.style.display = "flex";
+
+      setTimeout(() => {
+        surprise.style.display = "block";
+        surprise.style.opacity = "1";
+      }, 1000);
+
+      setTimeout(() => {
+        photos.style.display = "flex";
+      }, 1500);
+
+      startHearts();
+    });
+
+    noBtn.addEventListener("mouseover", function () {
+      const width = window.innerWidth - 100;
+      const height = window.innerHeight - 50;
+      this.style.position = "absolute";
+      this.style.top = Math.random() * height + "px";
+      this.style.left = Math.random() * width + "px";
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (12 + Math.random() * 24) + "px";
+      heart.style.opacity = Math.random() * 0.8 + 0.2;
+      heart.style.animationDuration = 4 + Math.random() * 2 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    function startHearts() {
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createHeart, i * 150);
+      }
+      setInterval(createHeart, 800);
+    }
+
+    setInterval(createHeart, 2000);
+  </script>
+</body>
+</html>
